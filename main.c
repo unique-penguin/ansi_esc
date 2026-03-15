@@ -14,13 +14,13 @@ int main(int argc, char *argv[]){
 
 
     ANSI_style warning = {
-        .bg_color = DEFAULT,
-        .fg_color = DEFAULT,
-        .style = BOLD|DIM,
+        .bg_color = ANSI_DEFAULT,
+        .fg_color = ANSI_DEFAULT,
+        .style = ANSI_BOLD|ANSI_DIM,
     };
 
     char buffer[128];
-    str_style(buffer, sizeof(buffer), text, strlen(text), warning);
+    ANSI_style_str(buffer, sizeof(buffer), text, strlen(text), warning);
 
     printf("%s\n", buffer);
     return 0;
