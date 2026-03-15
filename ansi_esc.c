@@ -1,8 +1,4 @@
-#include "ansi_esc_lib.h"
-#include <stdio.h>
-#include <string.h>
-
-
+#include "ansi_esc.h"
 
 int ANSI_style_str(char *buffer, size_t buffer_size, const char *string, size_t string_size, ANSI_style style){
     // check if the colors are in range
@@ -34,4 +30,25 @@ int ANSI_style_str(char *buffer, size_t buffer_size, const char *string, size_t 
     // Compose final string
     int written = snprintf(buffer, buffer_size, "\x1b[%sm%.*s\x1b[0m", style_string, (int)string_size, string);
     return (written < 0 ? 0 : written);
+}
+
+
+
+int ANSI_fsetf(ANSI_style style, FILE *stream){
+    if(!stream) return -1;
+
+    char buf[64];
+    size_t n = ANSI_style_cstr(buf, sizeof(buf), "", style);
+    if (n > 0) {
+        return (int)fwrite(buf, 1, n, stream);
+    }
+    return -1;
+}
+
+
+int ANSI_fresetf(FILE *stream){
+    if(!stream) return -1;
+
+    fputs("\x1b[0m", stream);
+    return 0;
 }

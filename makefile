@@ -1,2 +1,2 @@
-main: main.c ansi_esc_lib.c
-	gcc main.c ansi_esc_lib.c -o main
+main: main.c ansi_esc.c
+	gcc main.c ansi_esc.c -o main

@@ -1,9 +1,10 @@
 #ifndef ANSI_ESC_H
 #define ANSI_ESC_H
 
-#include <stddef.h>
-#include <string.h>
-
+#include <stddef.h> // for size_t
+#include <string.h> // for strlen
+#include <stdio.h> // for stderr, stdout
+ 
 typedef enum {
     ANSI_BLACK = 30,
     ANSI_RED,
@@ -46,20 +47,41 @@ typedef struct
 } ANSI_style;
 
 /**
- * Behavior:
- * - If fg_color or bg_color is outside the valid ANSI range, the color
- *   will fallback to ANSI_DEFAULT (fg) or ANSI_BLACK (bg).
- * - Styles are combined using bitwise OR.
- * - Produces a null-terminated string with ANSI escape sequences.
- *
- * Returns:
- * - The number of characters written into the buffer (excluding the null terminator),
- *   similar to snprintf. Returns 0 if buffer is too small or on severe errors.
+ * Writes formated string to buf with reset at the end
  */
 int ANSI_style_str(char *buf, size_t buf_size, const char *s, size_t s_size, ANSI_style style);
 
-static inline size_t ANSI_style_cstr(char *buf, size_t bufsize, const char *s, ANSI_style style) {
+/**
+ * Writes formated string to buf with reset at the end
+ */
+static inline int ANSI_style_cstr(char *buf, size_t bufsize, const char *s, ANSI_style style) {
     return ANSI_style_str(buf, bufsize, s, strlen(s), style);
+}
+
+
+/**
+ * Sets the style of stream
+ */
+int ANSI_fsetf(ANSI_style style, FILE *stream);
+
+/**
+ * Sets the style of stdout
+ */
+static inline int ANSI_setf(ANSI_style style){
+    ANSI_fsetf(style, stdout);
+}
+
+
+/**
+ * Resets the style of stream
+ */
+int ANSI_fresetf(FILE *stream);
+
+/**
+ * Resets the style of stdout
+ */
+static inline int ANSI_resetf(){
+    ANSI_resetf(stdout);
 }
 
 #endif // ANSI_ESC_H

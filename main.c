@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stddef.h>
 
-#include "ansi_esc_lib.h"
+#include "ansi_esc.h"
 
 int main(int argc, char *argv[]){
     char *text = argv[0];
@@ -19,7 +19,7 @@ int main(int argc, char *argv[]){
         .style = ANSI_BOLD|ANSI_DIM,
     };
 
-    char buffer[2];
+    char buffer[256];
     ANSI_style_str(buffer, sizeof(buffer), text, strlen(text), warning);
 
     printf("%s\n", buffer);
