@@ -46,10 +46,6 @@ typedef struct
 } ANSI_style;
 
 /**
- * --- Functions declaration ---
- */
-
-/**
  * Behavior:
  * - If fg_color or bg_color is outside the valid ANSI range, the color
  *   will fallback to ANSI_DEFAULT (fg) or ANSI_BLACK (bg).
