@@ -68,7 +68,7 @@ int ANSI_fsetf(ANSI_style style, FILE *stream);
  * Sets the style of stdout
  */
 static inline int ANSI_setf(ANSI_style style){
-    ANSI_fsetf(style, stdout);
+    return ANSI_fsetf(style, stdout);
 }
 
 
@@ -81,7 +81,7 @@ int ANSI_fresetf(FILE *stream);
  * Resets the style of stdout
  */
 static inline int ANSI_resetf(){
-    ANSI_resetf(stdout);
+    return ANSI_fresetf(stdout);
 }
 
 #endif // ANSI_ESC_H
