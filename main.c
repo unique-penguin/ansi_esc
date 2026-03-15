@@ -19,7 +19,7 @@ int main(int argc, char *argv[]){
         .style = ANSI_BOLD|ANSI_DIM,
     };
 
-    char buffer[128];
+    char buffer[2];
     ANSI_style_str(buffer, sizeof(buffer), text, strlen(text), warning);
 
     printf("%s\n", buffer);
